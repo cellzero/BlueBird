@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BlueBird.Demos
 {
 
-    public class SmoothCameraFollower : MonoBehaviour
+    public class DummyFollowerCamera : MonoBehaviour
     {
 
         public Transform target;
@@ -124,6 +124,7 @@ namespace BlueBird.Demos
             Vector3 relativeOffset = Vector3.forward * distance + Vector3.down * height;
             transform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
 
+            /*
             // Calculate the projected center position and top position in world space
             Ray centerRay = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 1f));
             Ray topRay = GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, clampHeadPositionScreenSpace, 1.0f));
@@ -145,6 +146,7 @@ namespace BlueBird.Demos
                 extraLookAngle = extraLookAngle - centerToTopAngle;
                 transform.rotation *= Quaternion.Euler(-extraLookAngle, 0, 0);
             }
+            */
         }
 
         float AngleDistance(float a, float b)
