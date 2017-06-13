@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ElementController : MonoBehaviour {
 
-    public float aim_scale;
+    [SerializeField] public float init_scale;
+    [SerializeField] public float aim_scale;
     private float scale_x;
 
 	// Use this for initialization
 	void Start () {
-        scale_x = transform.localScale.x;
-	}
+        scale_x = init_scale;
+        transform.localScale = new Vector3(scale_x, scale_x, scale_x);
+    }
 	
 	// Update is called once per frame
 	void Update () {
