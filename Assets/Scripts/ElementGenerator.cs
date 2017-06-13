@@ -23,7 +23,7 @@ public class ElementGenerator : MonoBehaviour {
 
         while (true)
         {
-            int i = Random.Range(0, 500);
+            int i = Random.Range(0, 100);
             if (i < elements.Length)
             {
                 Instantiate(elements[i], card.transform.position, card.transform.rotation);
