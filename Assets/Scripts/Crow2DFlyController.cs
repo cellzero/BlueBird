@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class Crow2DFlyController : MonoBehaviour {
 
+
+	public float MaxStrength;
+	private float currentStrength;
+
 	public float TimeToRecover;
 	public Camera MainCamera;
 	private float lastPushTime;
-	public float OneStepRight;
+
+	public float OneStepRightMin;
+	public float OneStepRightMax;
+	private float currentOneStepRight;
 
 	private Animator _animator;
 
-	private float offset_y;
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +27,11 @@ public class Crow2DFlyController : MonoBehaviour {
 
 		_animator = this.GetComponent<Animator>();
 
-		offset_y = MainCamera.transform.position.y - transform.position.y;
+
+		currentOneStepRight = OneStepRightMin;
+		currentStrength = MaxStrength;
+
+
 	}
 
 	// Update is called once per frame
@@ -56,6 +67,31 @@ public class Crow2DFlyController : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetButton ("Jump") && currentStrength >= 0.5f) {
+			currentStrength -= 0.5f;
+			currentOneStepRight += 0.005f;
+			if (currentOneStepRight >= OneStepRightMax)
+				currentOneStepRight = OneStepRightMax;
+
+		} else if (Input.GetButton ("Jump")) {
+
+			// 无法继续加速 只能减
+
+			currentOneStepRight -= 0.005f;
+			if (currentOneStepRight < OneStepRightMin)
+				currentOneStepRight = OneStepRightMin;
+		} else if (currentStrength < MaxStrength){
+			// 考虑减速和恢复能量
+
+			currentStrength += 0.5f;
+
+
+			currentOneStepRight -= 0.01f;
+			if (currentOneStepRight < OneStepRightMin)
+				currentOneStepRight = OneStepRightMin;
+		}
+
+		print (currentOneStepRight + " " + currentStrength);
 
 
 
@@ -72,9 +108,9 @@ public class Crow2DFlyController : MonoBehaviour {
 
 
 		Vector3 v = transform.position;
-		v.z = v.z + OneStepRight;
+		v.z = v.z + currentOneStepRight;
 
-		v.y = v.y - downSpeed / rightSpeed * OneStepRight;
+		v.y = v.y - downSpeed / rightSpeed * currentOneStepRight;
 		if (v.y <= 5f)
 			v.y = 5f;
 		if (v.y >= 75f)
