@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class CardFly : MonoBehaviour {
 
-    public int speed;
+    public int init_speed;
     public int amplitude;
     public float omega;
 
+    public GameObject crow;
+    public float wait_threshold;
+    public float move_threshold;
+
+    private int speed;
     private float initZ;
     private float initY;
     private float prevY;
@@ -17,6 +22,7 @@ public class CardFly : MonoBehaviour {
 	void Start () {
         initZ = transform.position.z;
         initY = prevY = transform.position.y;
+        speed = init_speed;
         preAngle = -45;
 	}
 	
@@ -27,5 +33,18 @@ public class CardFly : MonoBehaviour {
         transform.Rotate(angle - preAngle, 0, 0, Space.Self);
         preAngle = angle;
         prevY = transform.position.y;
+
+        float dist = transform.transform.position.z - crow.transform.position.z;
+        if (dist > wait_threshold)
+        {
+            speed = 0;
+        }
+        else if (dist < move_threshold && speed < init_speed) {
+            speed++;
+        }
+    }
+    public bool isStop() {
+        if (speed == 0) return true;
+        return false;
     }
 }
