@@ -7,10 +7,12 @@ public class ElementGenerator : MonoBehaviour {
 
     public GameObject[] elements;
     public GameObject card;
+    private CardFly cardController;
     
 
 	// Use this for initialization
 	void Start () {
+        cardController = card.GetComponent<CardFly>();
         StartCoroutine(ElementGenerate());
     }
 	
@@ -20,9 +22,10 @@ public class ElementGenerator : MonoBehaviour {
 	}
 
     IEnumerator ElementGenerate() {
-
+        
         while (true)
         {
+            if (cardController.isStop()) yield return new WaitForSeconds(1);
             int i = Random.Range(0, 100);
             if (i < elements.Length)
             {
