@@ -123,7 +123,9 @@ public class Crow2DFlyController : MonoBehaviour {
 
 		// MainCamera.transform.position = MainCamera.transform.position + new Vector3 (0, offset_y + transform.position.y - MainCamera.transform.position.y, 0);
 
-
-
 	}
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "Element")
+        Destroy(other.gameObject);
+    }
 }
