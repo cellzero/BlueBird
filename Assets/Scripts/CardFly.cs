@@ -43,6 +43,8 @@ public class CardFly : MonoBehaviour {
             speed = 0;
         }
         else if (dist < move_threshold && speed < init_speed) {
+            if (speed + 2 <= init_speed)
+                speed++;
             speed++;
         }
 
@@ -60,7 +62,12 @@ public class CardFly : MonoBehaviour {
                 transform.Translate(0, -0.05f, 0, Space.World);
                 levitate--;
             }
-            
+        } else if (Mathf.Abs(transform.position.y - prevY) > 0.001) {
+            float delta = transform.position.y - prevY;
+            if(delta > 0)
+                transform.Translate(0, -0.05f, 0, Space.World);
+            else
+                transform.Translate(0, 0.05f, 0, Space.World);
         }
         else {
             transform.Translate(0, amplitude * Mathf.Sin(omega * (transform.position.z - initZ)) + initY - prevY, Time.deltaTime * speed, Space.World);
