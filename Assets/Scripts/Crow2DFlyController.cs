@@ -69,7 +69,7 @@ public class Crow2DFlyController : MonoBehaviour {
 
 		if (Input.GetButton ("Jump") && currentStrength >= 0.5f) {
 			currentStrength -= 0.5f;
-			currentOneStepRight += 0.005f;
+			currentOneStepRight += 0.25f;
 			if (currentOneStepRight >= OneStepRightMax)
 				currentOneStepRight = OneStepRightMax;
 
@@ -77,7 +77,7 @@ public class Crow2DFlyController : MonoBehaviour {
 
 			// 无法继续加速 只能减
 
-			currentOneStepRight -= 0.005f;
+			currentOneStepRight -= 0.25f;
 			if (currentOneStepRight < OneStepRightMin)
 				currentOneStepRight = OneStepRightMin;
 		} else if (currentStrength < MaxStrength){
@@ -86,7 +86,7 @@ public class Crow2DFlyController : MonoBehaviour {
 			currentStrength += 0.5f;
 
 
-			currentOneStepRight -= 0.01f;
+			currentOneStepRight -= 0.5f;
 			if (currentOneStepRight < OneStepRightMin)
 				currentOneStepRight = OneStepRightMin;
 		}
@@ -108,9 +108,9 @@ public class Crow2DFlyController : MonoBehaviour {
 
 
 		Vector3 v = transform.position;
-		v.z = v.z + currentOneStepRight;
+		v.z = v.z + currentOneStepRight * Time.deltaTime;
 
-		v.y = v.y - downSpeed / rightSpeed * currentOneStepRight;
+		v.y = v.y - downSpeed / rightSpeed * currentOneStepRight * Time.deltaTime;
 		if (v.y <= 5f)
 			v.y = 5f;
 		if (v.y >= 75f)
