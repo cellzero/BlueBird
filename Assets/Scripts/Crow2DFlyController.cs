@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Crow2DFlyController : MonoBehaviour {
 
+    //public GameObject SpeedLine;
 
 	public float MaxStrength;
 	private float currentStrength;
@@ -47,23 +48,35 @@ public class Crow2DFlyController : MonoBehaviour {
 
 		if (Input.GetAxis ("Vertical") > 0) {
 			lastPushTime = Time.time;
-			if (cAX != 0f && (cAX <= 325f && cAX >= 315f)) {
-			} else
-
-				transform.Rotate (-2.5f, 0f, 0f);
+            if (cAX != 0f && (cAX <= 325f && cAX >= 315f))
+            {
+            }
+            else
+            {
+                transform.Rotate(-2.5f, 0f, 0f);
+               // SpeedLine.transform.Rotate(-2.5f, 0f, 0f);
+            }
 		} else if (Input.GetAxis ("Vertical") < 0) {
 			lastPushTime = Time.time;
-			if (cAX != 0f && (cAX >= 35F && cAX <= 45f)) {
-			} else
-				transform.Rotate (2.5f, 0f, 0f);
+            if (cAX != 0f && (cAX >= 35F && cAX <= 45f))
+            {
+            }
+            else
+            {
+                transform.Rotate(2.5f, 0f, 0f);
+               // SpeedLine.transform.Rotate(2.5f, 0f, 0f);
+            }
 		} else {
 			float curTime = Time.time;
 			if (curTime - lastPushTime > TimeToRecover) {
 				if (cAX >= 300f) {
 					transform.Rotate (Mathf.Min(0.9f, 360f - cAX), 0f, 0f);
-				} else if (cAX > 0f) {
+                    //SpeedLine.transform.Rotate(Mathf.Min(0.9f, 360f - cAX), 0f, 0f);
+
+                } else if (cAX > 0f) {
 					transform.Rotate (Mathf.Max(-0.9f, -cAX), 0f, 0f);
-				}
+                    //SpeedLine.transform.Rotate(Mathf.Max(-0.9f, -cAX), 0f, 0f);
+                }
 			}
 		}
 
