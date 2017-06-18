@@ -43,9 +43,8 @@ public class CardFly : MonoBehaviour {
             speed = 0;
         }
         else if (dist < move_threshold && speed < init_speed) {
-            if (speed + 2 <= init_speed)
-                speed++;
-            speed++;
+			speed += 3;
+			speed = Mathf.Min (speed, init_speed);
         }
 
         if (isStop())
